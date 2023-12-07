@@ -1,5 +1,4 @@
-# No arquivo utils.py
-
+# classe de Candidato
 class Candidato:
     def __init__(self, numero, nome, partido, cargo):
         self.numero = numero
@@ -25,28 +24,11 @@ def listar_candidatos(candidatos):
         if candidato.cargo == "vereador":
             print(f"Número: {candidato.numero}, Nome: {candidato.nome}, Partido: {candidato.partido}")
 
-def contabilizar_votos(candidatos):
-    resultados = []
-    for candidato in candidatos:
-        resultados.append({
-            'numero': candidato.numero,
-            'nome': candidato.nome,
-            'cargo': candidato.cargo,
-            'votos': len(candidato.votos)
-        })
-    return resultados
-
 def zerar_votos(candidatos):
     for candidato in candidatos:
         candidato.zerar_votos()
 
     print("Zerésima realizada. Todos os votos foram resetados.")
-
-# No arquivo utils.py
-
-# No arquivo utils.py
-
-# No arquivo utils.py
 
 def iniciar_votacao(candidatos):
     while True:
