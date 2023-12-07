@@ -42,12 +42,6 @@ def zerar_votos(candidatos):
 
     print("Zerésima realizada. Todos os votos foram resetados.")
 
-# No arquivo utils.py
-
-# No arquivo utils.py
-
-# No arquivo utils.py
-
 def iniciar_votacao(candidatos):
     while True:
         print("\n------ Votação ------")
@@ -55,6 +49,7 @@ def iniciar_votacao(candidatos):
         print("1. Prefeito")
         print("2. Vereador")
         print("0. Finalizar")
+        
         opcao = input("Digite o número da opção desejada: ")
 
         if opcao == '0':
@@ -74,66 +69,77 @@ def iniciar_votacao(candidatos):
             if candidato:
                 print(f"\nCandidato encontrado:")
                 print(f"Nome: {candidato.nome}")
-                confirmacao = input("Digite 'S' para confirmar, 'N' para continuar votando ou '0' para cancelar: ").upper()
+                confirmacao = input("Digite 'S' para confirmar: ").upper()
 
                 if confirmacao == 'S':
                     eleitor = input("Digite o número do eleitor: ")
-                    candidato.adicionar_voto(eleitor)  # Correção: Passando o argumento eleitor
+                    candidato.adicionar_voto(eleitor)  # Aqui é onde o voto é registrado
                     print(f"Voto registrado para {candidato.nome} ({candidato.partido}).")
-
-                elif confirmacao == '0':
+                    continuar = input("Deseja continuar votando? (S para sim, N para não): ").upper()
+                    if continuar != 'S':
+                        print("Votação encerrada.")
+                        return None
+                else:
                     print("Votação cancelada.")
-                    return None
-
-                continuar_votando = input("Deseja continuar votando? (S para sim, N para não): ").upper()
-
-                if continuar_votando != 'S':
-                    print("Votação encerrada.")
-                    return None
-
             else:
                 print("Número de candidato inválido ou cargo incorreto. Tente novamente.")
-
         else:
             print("Opção inválida. Tente novamente.")
-def apurar_votos(resultados):
-    resultados_ordenados = sorted(resultados, key=lambda x: x['votos'], reverse=True)
 
-    eleitos = []
-    segundo_turno = False
+def mostrar_resultados(prefeitos, vereadores):
+    resultados_prefeitos = contabilizar_votos(prefeitos)
+    resultados_vereadores = contabilizar_votos(vereadores)
 
-    for candidato in resultados_ordenados:
-        if candidato['votos'] > 0:
-            eleitos.append(candidato['nome'])
-
-        if len(eleitos) == 2 and eleitos[0] == eleitos[1]:
-            segundo_turno = True
-            break
-
-    return eleitos, segundo_turno
-
-def mostrar_resultados(resultados_prefeitos, resultados_vereadores):
-    prefeito_eleito, segundo_turno_prefeito = apurar_votos(resultados_prefeitos)
-    vereadores_eleitos = apurar_votos(resultados_vereadores, cargo='vereador')
+    resultados = {'prefeitos': resultados_prefeitos, 'vereadores': resultados_vereadores}
 
     print("\n------ Resultados ------")
-    
-    print("\nPrefeitos:")
+
+    print("Prefeitos:")
     for resultado in resultados_prefeitos:
-        print(f"  {resultado['nome']} ({resultado['cargo']}): {resultado['votos']} votos")
+        print(f"  {resultado['nome']}: {resultado['votos']} votos")
 
     print("\nVereadores:")
     for resultado in resultados_vereadores:
-        print(f"  {resultado['nome']} ({resultado['cargo']}): {resultado['votos']} votos")
+        print(f"  {resultado['nome']}: {resultado['votos']} votos")
 
-    print("\n------ Eleitos ------")
+    opcao_apurar = input("\n1. Apurar votos\n0. Cancelar\nEscolha uma opção: ")
 
-    print("\nPrefeito Eleito:")
-    if segundo_turno_prefeito:
-        print("Segundo turno necessário.")
+    if opcao_apurar == "1":
+           apurar_votos(resultados)
+
+        
+    elif opcao_apurar == "0":
+        print("Operação Cancelada.")
     else:
-        print(prefeito_eleito['nome'] if prefeito_eleito else "Nenhum eleito.")
+        print("Opção inválida.")
+def apurar_votos(resultados):
+    prefeitos_ordenados = sorted(resultados['prefeitos'], key=lambda x: x['votos'], reverse=True)
+    vereadores_ordenados = sorted(resultados['vereadores'], key=lambda x: x['votos'], reverse=True)
 
-    print("\nVereadores Eleitos:")
-    for vereador in vereadores_eleitos:
-        print(f"  {vereador['nome']} ({vereador['cargo']}): {vereador['votos']} votos")
+    # Verifica se o prefeito eleito tem pelo menos um voto
+    prefeito_eleito = prefeitos_ordenados[0]
+    segundo_colocado = prefeitos_ordenados[1]
+
+    if prefeito_eleito['votos'] > 0:
+        print("\nPrefeito Eleito:")
+        print(f"{prefeito_eleito['nome']} ({prefeito_eleito['cargo']}): {prefeito_eleito['votos']} votos")
+
+        # Verifica se há empate entre os prefeitos mais votados
+        if prefeito_eleito['votos'] == segundo_colocado['votos']:
+            print(f"\nEmpate entre {prefeito_eleito['nome']} e {segundo_colocado['nome']}. Segundo turno necessário.")
+            return None, None  # Retorna None, indicando a necessidade de segundo turno
+    else:
+        print("\nNenhum prefeito foi votado. A eleição é inválida.")
+        return None, None
+
+    # Verifica se pelo menos um vereador foi eleito
+    vereadores_eleitos = [v for v in vereadores_ordenados if v['votos'] > 0][:10]
+    if vereadores_eleitos:
+        print("\nVereadores Eleitos:")
+        for vereador in vereadores_eleitos:
+            print(f"{vereador['nome']} ({vereador['cargo']}): {vereador['votos']} votos")
+    else:
+        print("\nNenhum vereador foi votado. A eleição é inválida.")
+        return None, None
+
+    return prefeito_eleito, vereadores_eleitos

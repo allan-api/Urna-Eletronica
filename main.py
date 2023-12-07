@@ -7,7 +7,7 @@ def main():
     prefeitos = [
         Candidato("22", "Bolsonaro", "PartidoA", "prefeito"),
         Candidato("13", "Lula", "PartidoB", "prefeito"),
-        Candidato("13", "Fulano", "PartidoF", "prefeito"),
+        Candidato("01", "Fulano", "PartidoF", "prefeito"),
         # Adicione mais candidatos conforme necessário
     ]
 
@@ -25,6 +25,7 @@ def main():
         Candidato("00010", "Denis", "PartidoJ", "vereador"),
     ]
 
+    zerar_votos(prefeitos + vereadores)
     while True:
         print("\n------ Menu Principal ------")
         print("1. Iniciar Votação")
@@ -36,7 +37,7 @@ def main():
         escolha = input("Escolha uma opção: ")
 
         if escolha == "1":
-            iniciar_votacao(prefeitos + vereadores)
+           iniciar_votacao(prefeitos + vereadores)
         elif escolha == "2":
             listar_candidatos(prefeitos + vereadores)
         elif escolha == "3":
