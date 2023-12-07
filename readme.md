@@ -51,5 +51,5 @@ Deixei esses dados estáticos pois começava a sair de contextos, tinha muitas i
 3. **Execute o projeto**
 
 ```bash
-  python seu_projeto.py
+  python main.py
 ```
