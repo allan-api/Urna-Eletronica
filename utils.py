@@ -1,5 +1,4 @@
-# No arquivo utils.py
-
+# classe de Candidato
 class Candidato:
     def __init__(self, numero, nome, partido, cargo):
         self.numero = numero
@@ -24,17 +23,6 @@ def listar_candidatos(candidatos):
     for candidato in candidatos:
         if candidato.cargo == "vereador":
             print(f"Número: {candidato.numero}, Nome: {candidato.nome}, Partido: {candidato.partido}")
-
-def contabilizar_votos(candidatos):
-    resultados = []
-    for candidato in candidatos:
-        resultados.append({
-            'numero': candidato.numero,
-            'nome': candidato.nome,
-            'cargo': candidato.cargo,
-            'votos': len(candidato.votos)
-        })
-    return resultados
 
 def zerar_votos(candidatos):
     for candidato in candidatos:

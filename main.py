@@ -1,6 +1,6 @@
 # No arquivo main.py
 
-from utils import Candidato, listar_candidatos, iniciar_votacao, contabilizar_votos, zerar_votos, apurar_votos, mostrar_resultados
+from utils import Candidato, listar_candidatos, iniciar_votacao, zerar_votos, apurar_votos, mostrar_resultados
 
 def main():
     # Criar candidatos para prefeito
