@@ -2,13 +2,13 @@
 
 Urna eletronica, os candidatos estao estáticos no codigo, segue lista:
 
-# Prefeitos:
+**Prefeitos:**
 
 numero 22 - Bolsonaro do Partido A
 numero 13 - Lula do Partido B
 numero 13 - Fulano do Partido F
 
-# Vereadores:
+**Vereadores:**
 
 numero 00001 - Ana do Partido A
 numero 00002 - Allan do Partido B
