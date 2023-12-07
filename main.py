@@ -7,7 +7,7 @@ def main():
     prefeitos = [
         Candidato("22", "Bolsonaro", "PartidoA", "prefeito"),
         Candidato("13", "Lula", "PartidoB", "prefeito"),
-        Candidato("13", "Fulano", "PartidoF", "prefeito"),
+        Candidato("01", "Fulano", "PartidoF", "prefeito"),
         # Adicione mais candidatos conforme necessário
     ]
 

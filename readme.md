@@ -6,7 +6,7 @@ Urna eletronica, os candidatos estao estáticos no codigo, segue lista:
 
 numero 22 - Bolsonaro do Partido A
 numero 13 - Lula do Partido B
-numero 13 - Fulano do Partido F
+numero 1 - Fulano do Partido F
 
 # Vereadores:
 
